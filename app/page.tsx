@@ -1,280 +1,142 @@
+'use client';
+
+import { useState, useMemo } from 'react';
+import { TreeNode, TreeNodeLeaf, TreeContainer } from './components/TreeNode';
+import { TerminalSearch, TerminalHeader, ThemeToggle } from './components/TerminalUI';
+
+interface Tool {
+  id: string;
+  label: string;
+  href?: string;
+  description: string;
+  icon: string;
+  tags: string[];
+  category: string;
+  section: string;
+}
+
+const TOOLS: Tool[] = [
+  // Debloat
+  { id: 'win11debloat', label: 'Win11Debloat', href: 'https://github.com/Raphire/Win11Debloat', description: 'PowerShell script to remove bloatware & unnecessary apps', icon: '🧹', tags: ['open-source', 'powershell', 'automation', 'debloat'], category: 'Debloat', section: 'Debloat' },
+  // UI Tweaks
+  { id: 'rainmeter', label: 'Rainmeter', href: 'https://www.rainmeter.net/', description: 'Desktop customization tool for skins & widgets', icon: '🌙', tags: ['skins', 'widgets', 'desktop-customization'], category: 'Desktop Customization', section: 'UI Tweaks' },
+  { id: 'droptop', label: 'Droptop', href: 'https://github.com/Droptop-Four/Droptop-Four/', description: 'Desktop overlay for quick access to apps & folders', icon: '📌', tags: ['open-source', 'desktop-overlay', 'launcher', 'productivity'], category: 'Desktop Customization', section: 'UI Tweaks' },
+  { id: 'mactype', label: 'MacType', href: 'https://www.mactype.net/', description: 'Enhances font rendering to match macOS quality', icon: '✒️', tags: ['font-rendering', 'typography', 'visual-enhancement'], category: 'Desktop Customization', section: 'UI Tweaks' },
+  { id: 'windynamicdesktop', label: 'WinDynamicDesktop', href: 'https://github.com/t1m0thyj/WinDynamicDesktop', description: 'Dynamically changes wallpaper based on time of day', icon: '🌅', tags: ['open-source', 'wallpaper', 'dynamic', 'time-based'], category: 'Wallpaper & Cursors', section: 'UI Tweaks' },
+  { id: 'osxpointer', label: 'osx pointer', href: 'https://github.com/antiden/macOS-cursors-for-Windows', description: 'macOS-style cursors for Windows', icon: '🖱️', tags: ['open-source', 'cursors', 'macos-theme', 'visual'], category: 'Wallpaper & Cursors', section: 'UI Tweaks' },
+  { id: 'startallback', label: 'StartAllBack', href: 'https://www.startallback.com/', description: 'Restores classic Windows Start menu & taskbar', icon: '▶️', tags: ['paid', 'start-menu', 'taskbar', 'classic-ui'], category: 'System UI', section: 'UI Tweaks' },
+  { id: '3rvx', label: '3RVX + HideVolumeOSD', href: 'https://github.com/prncc/3RVX', description: 'Advanced volume control with on-screen display', icon: '🔊', tags: ['open-source', 'volume-control', 'osd', 'audio'], category: 'System UI', section: 'UI Tweaks' },
+  // Essential Apps
+  { id: 'powertoys', label: 'PowerToys', href: 'https://github.com/microsoft/PowerToys', description: 'Set of utilities for power users', icon: '⚡', tags: ['open-source', 'microsoft', 'utilities', 'productivity', 'power-user'], category: 'Utilities', section: 'Essential Apps' },
+  { id: 'everything', label: 'Everything', href: 'https://www.voidtools.com/', description: 'Ultra-fast file & folder search', icon: '🔍', tags: ['file-search', 'indexing', 'fast-search'], category: 'Utilities', section: 'Essential Apps' },
+  { id: 'ditto', label: 'Ditto', href: 'https://ditto-cp.sourceforge.io/', description: 'Clipboard manager for multiple items', icon: '📋', tags: ['open-source', 'clipboard-manager', 'productivity', 'multi-clipboard'], category: 'Utilities', section: 'Essential Apps' },
+  { id: 'quicklook', label: 'QuickLook', href: 'https://github.com/QL-Win/QuickLook', description: 'Preview files by pressing spacebar', icon: '👁️', tags: ['open-source', 'file-preview', 'spacebar-preview', 'explorer-extension'], category: 'Utilities', section: 'Essential Apps' },
+  { id: 'eartrumpet', label: 'EarTrumpet', href: 'https://github.com/File-New-Project/EarTrumpet', description: 'Volume mixer with per-app controls', icon: '🔉', tags: ['open-source', 'volume-mixer', 'per-app-audio', 'audio-control'], category: 'Utilities', section: 'Essential Apps' },
+  { id: 'sharex', label: 'ShareX', href: 'https://getsharex.com/', description: 'Screenshot & screen recording with sharing', icon: '📷', tags: ['open-source', 'screenshot', 'screen-recording', 'sharing'], category: 'Media & Capture', section: 'Essential Apps' },
+  { id: 'faststone', label: 'FastStone Image Viewer', href: 'https://www.faststone.org/', description: 'Fast lightweight image viewer & editor', icon: '🖼️', tags: ['lightweight', 'image-viewer', 'image-editor', 'photo-viewer'], category: 'Media & Capture', section: 'Essential Apps' },
+  { id: 'flux', label: 'f.lux', href: 'https://justgetflux.com/', description: 'Adjusts screen temperature to reduce eye strain', icon: '🌡️', tags: ['blue-light-filter', 'eye-strain', 'night-mode'], category: 'Media Players', section: 'Essential Apps' },
+  { id: 'klite', label: 'K-Lite + MPC', href: 'https://www.codecguide.com/', description: 'Codec pack & Media Player Classic', icon: '🎬', tags: ['lightweight', 'media-player', 'codecs', 'video-player'], category: 'Media Players', section: 'Essential Apps' },
+  { id: 'foobar2k', label: 'Foobar2k', href: 'https://www.foobar2000.org/', description: 'Customizable audio player with high-quality playback', icon: '🎧', tags: ['open-source', 'audio-player', 'music-player', 'high-quality-audio'], category: 'Media Players', section: 'Essential Apps' },
+  { id: 'sumatrapdf', label: 'SumatraPDF', href: 'https://www.sumatrapdfreader.org/', description: 'Lightweight PDF & eBook reader', icon: '📕', tags: ['open-source', 'lightweight', 'pdf-reader', 'ebook-reader', 'document-viewer'], category: 'Media Players', section: 'Essential Apps' },
+  { id: 'qbittorrent', label: 'qBittorrent', href: 'https://www.qbittorrent.org/', description: 'Open-source BitTorrent client', icon: '💿', tags: ['open-source', 'torrent-client', 'p2p', 'file-downloading'], category: 'Data & Files', section: 'Essential Apps' },
+  { id: 'soulseek', label: 'Soulseek', href: 'https://www.slsknet.org/', description: 'Peer-to-peer file sharing network', icon: '🎵', tags: ['p2p', 'file-sharing', 'music-sharing'], category: 'Data & Files', section: 'Essential Apps' },
+  { id: 'windirstat', label: 'WinDirStat', href: 'https://windirstat.net/', description: 'Disk usage statistics viewer', icon: '📊', tags: ['open-source', 'disk-analyzer', 'storage-visualization', 'file-size'], category: 'Data & Files', section: 'Essential Apps' },
+  { id: 'notepadplusplus', label: 'Notepad++', href: 'https://notepad-plus-plus.org/', description: 'Free source code editor with syntax highlighting', icon: '📝', tags: ['open-source', 'text-editor', 'code-editor', 'syntax-highlighting'], category: 'Editors & Dev', section: 'Essential Apps' },
+  { id: 'ahk', label: 'AHK', href: 'https://www.autohotkey.com/', description: 'Scripting language for automation & hotkeys', icon: '⚙️', tags: ['open-source', 'automation', 'scripting', 'hotkeys', 'macros'], category: 'Editors & Dev', section: 'Essential Apps' },
+  { id: 'ccleaner', label: 'CCleaner', href: 'https://www.ccleaner.com/', description: 'System optimization & cleaning tool', icon: '🧽', tags: ['paid', 'system-cleaner', 'registry-cleaner', 'optimization'], category: 'Maintenance', section: 'Essential Apps' },
+  // Privacy
+  { id: 'hostfile', label: 'hosts file', href: 'http://winhelp2002.mvps.org/hosts.htm', description: 'Block ads & malware via hosts file', icon: '🚫', tags: ['guide', 'ad-blocking', 'malware-blocking', 'network-security'], category: 'Network Security', section: 'Privacy' },
+  { id: 'peerblock', label: 'PeerBlock', href: 'https://www.peerblock.com/', description: 'Blocks IP ranges to prevent unwanted connections', icon: '🛡️', tags: ['open-source', 'ip-blocker', 'firewall', 'privacy'], category: 'Network Security', section: 'Privacy' },
+  { id: 'simplewall', label: 'Simplewall', href: 'https://www.henrypp.org/product/simplewall', description: 'Simple firewall for Windows network control', icon: '🔥', tags: ['open-source', 'firewall', 'network-control', 'privacy'], category: 'Network Security', section: 'Privacy' },
+  { id: 'ublock', label: 'uBlock + filters', href: 'https://ublockorigin.com/', description: 'Efficient ad blocker with customizable filters', icon: '⛔', tags: ['open-source', 'browser', 'ad-blocker', 'content-blocker', 'privacy'], category: 'Browser Privacy', section: 'Privacy' },
+  // Package Managers
+  { id: 'ninite', label: 'Ninite', href: 'https://ninite.com/', description: 'Install and update multiple applications at once', icon: '📦', tags: ['installer', 'bulk-install', 'software-management', 'automation'], category: 'Software Installation', section: 'Package Managers' },
+];
+
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredTools = useMemo(() => {
+    if (!searchQuery.trim()) return TOOLS;
+    const query = searchQuery.toLowerCase();
+    return TOOLS.filter(
+      (tool) =>
+        tool.label.toLowerCase().includes(query) ||
+        tool.description.toLowerCase().includes(query) ||
+        tool.tags.some((tag) => tag.includes(query.replace('#', '')))
+    );
+  }, [searchQuery]);
+
+  const groupedBySection = useMemo(() => {
+    return filteredTools.reduce(
+      (acc, tool) => {
+        if (!acc[tool.section]) acc[tool.section] = [];
+        acc[tool.section].push(tool);
+        return acc;
+      },
+      {} as Record<string, Tool[]>
+    );
+  }, [filteredTools]);
+
   return (
-    <div className="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
-        <header className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-100 mb-4">
-            Guide to Unsuck Windows
-          </h1>
-          <p className="text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
-            With a bit of tweaking, you can live with it. Beta builds worked very poorly, but with the current one everything is ok. Here are my essentials, maybe you'll find something useful for yourself:
-          </p>
-        </header>
+    <div className="min-h-screen bg-black text-green-400 p-8 font-mono overflow-auto">
+      <style>{`
+        @keyframes blink {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+        .animate-blink {
+          animation: blink 1s infinite;
+        }
+      `}</style>
 
-        <main className="space-y-12">
-          <section className="bg-gray-800 rounded-lg p-8 shadow-lg">
-            <h2 className="text-3xl font-semibold text-gray-100 mb-6">Debloat</h2>
-            <ul className="space-y-4">
-              <li className="flex flex-col sm:flex-row sm:items-center">
-                <div className="flex-1">
-                  <strong className="text-lg text-gray-100">
-                    <a href="https://github.com/Raphire/Win11Debloat" className="text-blue-400 hover:text-blue-300 transition-colors">
-                      Win11Debloat
-                    </a>
-                  </strong>
-                  <p className="text-gray-300 mt-1">A PowerShell script to remove bloatware and unnecessary apps from Windows 11.</p>
-                </div>
-              </li>
-            </ul>
-          </section>
+      <div className="max-w-4xl">
+        <TerminalHeader
+          title="unsuck-windows --guide"
+          subtitle="Version 1.0.0 | A comprehensive guide to optimize Windows"
+        />
 
-          <section className="bg-gray-800 rounded-lg p-8 shadow-lg">
-            <h2 className="text-3xl font-semibold text-gray-100 mb-6">UI Tweaks</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.rainmeter.net/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    Rainmeter
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Desktop customization tool for creating skins, widgets, and visual effects.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://github.com/Droptop-Four/Droptop-Four/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    Droptop
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">A desktop overlay for quick access to apps and folders.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.mactype.net/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    MacType
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Enhances font rendering on Windows to match macOS quality.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://github.com/t1m0thyj/WinDynamicDesktop" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    WinDynamicDesktop
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Dynamically changes desktop wallpaper based on time of day.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.startallback.com/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    StartAllBack
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Restores the classic Windows Start menu and taskbar features.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://github.com/antiden/macOS-cursors-for-Windows" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    osx pointer
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">macOS-style cursors for Windows.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://github.com/prncc/3RVX" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    3RVX + HideVolumeOSD
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Advanced volume control with on-screen display and customization.</p>
-              </div>
-            </div>
-          </section>
+        <TerminalSearch
+          onSearch={setSearchQuery}
+          onClear={() => setSearchQuery('')}
+        />
 
-          <section className="bg-gray-800 rounded-lg p-8 shadow-lg">
-            <h2 className="text-3xl font-semibold text-gray-100 mb-6">Essential Apps</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://github.com/microsoft/PowerToys" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    PowerToys
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">A set of utilities for power users to tune and streamline Windows experience.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.voidtools.com/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    Everything
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Ultra-fast file and folder search tool.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://ditto-cp.sourceforge.io/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    Ditto
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Clipboard manager that saves multiple clipboard items.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://github.com/QL-Win/QuickLook" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    QuickLook
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Preview files by pressing the spacebar, like on macOS.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://github.com/File-New-Project/EarTrumpet" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    EarTrumpet
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Volume mixer for Windows with per-app controls.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://getsharex.com/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    ShareX
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Screenshot and screen recording tool with sharing options.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://justgetflux.com/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    f.lux
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Adjusts screen color temperature to reduce eye strain.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.autohotkey.com/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    AHK
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Scripting language for automating tasks and creating hotkeys.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.codecguide.com/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    K-Lite + MPC
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Codec pack and Media Player Classic for video playback.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.foobar2000.org/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    Foobar2k
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Customizable audio player with high-quality playback.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://notepad-plus-plus.org/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    Notepad++
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Free source code editor with syntax highlighting.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.qbittorrent.org/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    qBittorrent
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Open-source BitTorrent client.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.slsknet.org/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    Soulseek
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Peer-to-peer file sharing network for music and more.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.faststone.org/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    FastStone Image Viewer
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Fast and lightweight image viewer and editor.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.sumatrapdfreader.org/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    SumatraPDF
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Lightweight PDF, eBook, and comic book reader.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://windirstat.net/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    WinDirStat
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">Disk usage statistics viewer.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4 hover:bg-gray-600 transition-colors">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.ccleaner.com/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    CCleaner
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2 text-sm">System optimization and cleaning tool.</p>
-              </div>
-            </div>
-          </section>
+        {searchQuery && (
+          <div className="text-xs text-green-600 mb-4">
+            $ found {filteredTools.length} result{filteredTools.length !== 1 ? 's' : ''}
+          </div>
+        )}
 
-          <section className="bg-gray-800 rounded-lg p-8 shadow-lg">
-            <h2 className="text-3xl font-semibold text-gray-100 mb-6">Privacy</h2>
-            <div className="space-y-4">
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  Patch hosts file{" "}
-                  <a href="http://winhelp2002.mvps.org/hosts.htm" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    winhelp2002.mvps.org/hosts.htm
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2">Block ads and malware by editing the hosts file.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">Change default DNS to Google Public DNS/ OpenDNS</strong>
-                <p className="text-gray-300 mt-2">Use secure DNS servers like 8.8.8.8 or 208.67.222.222 for better privacy.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.peerblock.com/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    PeerBlock
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2">Blocks IP ranges to prevent unwanted connections.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://ublockorigin.com/" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    uBlock + filters
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2">Efficient ad blocker for browsers with customizable filters.</p>
-              </div>
-              <div className="bg-gray-700 rounded-lg p-4">
-                <strong className="text-lg text-gray-100">
-                  <a href="https://www.henrypp.org/product/simplewall" className="text-blue-400 hover:text-blue-300 transition-colors">
-                    Simplewall
-                  </a>
-                </strong>
-                <p className="text-gray-300 mt-2">Simple firewall for Windows to control network access.</p>
-              </div>
-            </div>
-          </section>
+        <main className="space-y-6">
+          {Object.entries(groupedBySection).map(([section, tools]) => (
+            <TreeContainer key={section} title={section} icon="📦">
+              {tools.map((tool) => (
+                <TreeNodeLeaf
+                  key={tool.id}
+                  icon={tool.icon}
+                  label={tool.label}
+                  href={tool.href}
+                  description={tool.description}
+                  tags={tool.tags}
+                />
+              ))}
+            </TreeContainer>
+          ))}
         </main>
+
+        {filteredTools.length === 0 && searchQuery && (
+          <div className="text-center py-8 text-green-600">
+            <div>$ no results found for "{searchQuery}"</div>
+            <div className="text-xs mt-2">try different keywords or tags</div>
+          </div>
+        )}
+
+        <div className="border-t-2 border-green-500 pt-4 mt-8 text-green-300 text-sm">
+          <div>$ guide --end</div>
+          <div className="mt-1 text-green-600">
+            © Unsuck Windows Guide | Keep it minimal, keep it running
+          </div>
+        </div>
       </div>
     </div>
   );
