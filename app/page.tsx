@@ -44,13 +44,35 @@ const TOOLS: Tool[] = [
   { id: 'notepadplusplus', label: 'Notepad++', href: 'https://notepad-plus-plus.org/', description: 'Free source code editor with syntax highlighting', icon: '📝', tags: ['open-source', 'text-editor', 'code-editor', 'syntax-highlighting'], category: 'Editors & Dev', section: 'Essential Apps' },
   { id: 'ahk', label: 'AHK', href: 'https://www.autohotkey.com/', description: 'Scripting language for automation & hotkeys', icon: '⚙️', tags: ['open-source', 'automation', 'scripting', 'hotkeys', 'macros'], category: 'Editors & Dev', section: 'Essential Apps' },
   { id: 'ccleaner', label: 'CCleaner', href: 'https://www.ccleaner.com/', description: 'System optimization & cleaning tool', icon: '🧽', tags: ['paid', 'system-cleaner', 'registry-cleaner', 'optimization'], category: 'Maintenance', section: 'Essential Apps' },
+  { id: '7zip', label: '7-Zip', href: 'https://www.7-zip.org/', description: 'File archiver with high compression ratio', icon: '📦', tags: ['open-source', 'file-compression', 'archiver', 'lightweight'], category: 'Data & Files', section: 'Essential Apps' },
+  { id: 'handbrake', label: 'HandBrake', href: 'https://handbrake.fr/', description: 'Open-source video transcoder', icon: '🎥', tags: ['open-source', 'video-transcoding', 'media-converter', 'encoding'], category: 'Media & Capture', section: 'Essential Apps' },
+  { id: 'vscode', label: 'Visual Studio Code', href: 'https://code.visualstudio.com/', description: 'Free code editor with built-in Git & debugging', icon: '💻', tags: ['open-source', 'microsoft', 'code-editor', 'ide', 'development'], category: 'Editors & Dev', section: 'Essential Apps' },
+  // System Monitoring
+  { id: 'hwiinfo', label: 'HWiNFO', href: 'https://www.hwinfo.com/', description: 'Comprehensive hardware monitoring & information tool', icon: '🔧', tags: ['hardware-monitoring', 'system-info', 'temperatures', 'voltages'], category: 'System Monitoring', section: 'System Monitoring' },
+  { id: 'msiafterburner', label: 'MSI Afterburner', href: 'https://www.msi.com/Landing/afterburner', description: 'GPU monitoring, overclocking & video capture', icon: '🎮', tags: ['gpu-monitoring', 'overclocking', 'video-capture', 'benchmarking'], category: 'System Monitoring', section: 'System Monitoring' },
+  { id: 'speccy', label: 'Speccy', href: 'https://www.ccleaner.com/speccy', description: 'Detailed system specifications & hardware information', icon: '💻', tags: ['system-info', 'hardware-info', 'specifications', 'diagnostics'], category: 'System Monitoring', section: 'System Monitoring' },
+  // Communication
+  { id: 'telegram', label: 'Telegram', href: 'https://telegram.org/', description: 'Fast, secure messaging with large group support', icon: '💬', tags: ['messaging', 'communication', 'encrypted', 'cross-platform'], category: 'Communication', section: 'Communication' },
   // Privacy
   { id: 'hostfile', label: 'hosts file', href: 'http://winhelp2002.mvps.org/hosts.htm', description: 'Block ads & malware via hosts file', icon: '🚫', tags: ['guide', 'ad-blocking', 'malware-blocking', 'network-security'], category: 'Network Security', section: 'Privacy' },
   { id: 'peerblock', label: 'PeerBlock', href: 'https://www.peerblock.com/', description: 'Blocks IP ranges to prevent unwanted connections', icon: '🛡️', tags: ['open-source', 'ip-blocker', 'firewall', 'privacy'], category: 'Network Security', section: 'Privacy' },
   { id: 'simplewall', label: 'Simplewall', href: 'https://www.henrypp.org/product/simplewall', description: 'Simple firewall for Windows network control', icon: '🔥', tags: ['open-source', 'firewall', 'network-control', 'privacy'], category: 'Network Security', section: 'Privacy' },
-  { id: 'ublock', label: 'uBlock + filters', href: 'https://ublockorigin.com/', description: 'Efficient ad blocker with customizable filters', icon: '⛔', tags: ['open-source', 'browser', 'ad-blocker', 'content-blocker', 'privacy'], category: 'Browser Privacy', section: 'Privacy' },
+  { id: 'protonvpn', label: 'ProtonVPN', href: 'https://protonvpn.com/', description: 'Secure VPN with no-logs policy & free tier', icon: '🔒', tags: ['vpn', 'privacy', 'no-logs', 'swiss-based'], category: 'VPN Services', section: 'Privacy' },
+  { id: 'onionfruit', label: 'OnionFruit', href: 'https://github.com/dragonfruitnetwork/onionfruit', description: 'Tor-powered VPN for anonymous browsing', icon: '🧅', tags: ['open-source', 'tor-vpn', 'anonymity', 'privacy'], category: 'VPN Services', section: 'Privacy' },
+  { id: 'firefox', label: 'Firefox', href: 'https://www.mozilla.org/firefox/', description: 'Privacy-focused browser with extensive extension support', icon: '🦊', tags: ['browser', 'privacy', 'open-source', 'mozilla'], category: 'Browsers', section: 'Privacy' },
+  { id: 'brave', label: 'Brave Browser', href: 'https://brave.com/', description: 'Privacy-focused browser with built-in ad/tracker blocking', icon: '🛡️', tags: ['browser', 'privacy', 'ad-blocking', 'fast', 'crypto-rewards'], category: 'Browsers', section: 'Privacy' },
+  // Browser Extensions
+  { id: 'ublock', label: 'uBlock Origin', href: 'https://ublockorigin.com/', description: 'Efficient ad blocker with customizable filters', icon: '⛔', tags: ['open-source', 'browser-extension', 'ad-blocker', 'content-blocker', 'privacy'], category: 'Browser Extensions', section: 'Browser Extensions' },
+  { id: 'httpseverywhere', label: 'HTTPS Everywhere', href: 'https://www.eff.org/https-everywhere', description: 'Automatically switches to HTTPS connections', icon: '🔒', tags: ['browser-extension', 'https', 'security', 'privacy'], category: 'Browser Extensions', section: 'Browser Extensions' },
+  { id: 'decentraleyes', label: 'Decentraleyes', href: 'https://decentraleyes.org/', description: 'Serves common libraries locally to avoid CDNs', icon: '🌐', tags: ['browser-extension', 'privacy', 'cdn', 'local-libraries'], category: 'Browser Extensions', section: 'Browser Extensions' },
+  { id: 'clearurls', label: 'ClearURLs', href: 'https://docs.clearurls.xyz/', description: 'Removes tracking parameters from URLs', icon: '🧹', tags: ['browser-extension', 'privacy', 'tracking', 'url-cleaner'], category: 'Browser Extensions', section: 'Browser Extensions' },
+  { id: 'cookieautodelete', label: 'Cookie AutoDelete', href: 'https://github.com/Cookie-AutoDelete/Cookie-AutoDelete', description: 'Automatically deletes cookies when closing tabs', icon: '🍪', tags: ['open-source', 'browser-extension', 'cookies', 'privacy'], category: 'Browser Extensions', section: 'Browser Extensions' },
   // Package Managers
   { id: 'ninite', label: 'Ninite', href: 'https://ninite.com/', description: 'Install and update multiple applications at once', icon: '📦', tags: ['installer', 'bulk-install', 'software-management', 'automation'], category: 'Software Installation', section: 'Package Managers' },
+  // Links & Resources
+  { id: 'rprivacy', label: 'r/Privacy', href: 'https://reddit.com/r/privacy', description: 'Privacy tools, techniques, and discussions', icon: '🔒', tags: ['reddit', 'community', 'privacy', 'security', 'tools'], category: 'Communities', section: 'Links & Resources' },
+  { id: 'rpiracy', label: 'r/Piracy', href: 'https://reddit.com/r/piracy', description: 'Software piracy discussion and alternatives', icon: '🏴‍☠️', tags: ['reddit', 'community', 'piracy', 'software', 'alternatives'], category: 'Communities', section: 'Links & Resources' },
+  { id: 'torrentleech', label: 'TorrentLeech', href: 'https://www.torrentleech.org/', description: 'Private torrent tracker with high-quality releases', icon: '🌊', tags: ['torrent-tracker', 'private', 'high-quality', 'p2p'], category: 'Torrent Trackers', section: 'Links & Resources' },
 ];
 
 export default function Home() {
@@ -93,7 +115,7 @@ export default function Home() {
       <div className="max-w-4xl">
         <TerminalHeader
           title="unsuck-windows --guide"
-          subtitle="Version 1.0.0 | A comprehensive guide to optimize Windows"
+          subtitle="A comprehensive guide to optimize Windows"
         />
 
         <TerminalSearch
