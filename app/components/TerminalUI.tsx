@@ -32,7 +32,6 @@ export const TerminalSearch: React.FC<TerminalSearchProps> = ({
           type="text"
           value={query}
           onChange={handleChange}
-          placeholder="[query]"
           className="flex-1 bg-black text-green-400 placeholder-green-700 outline-none border-b border-green-500 focus:border-green-300 transition-colors"
           autoFocus
         />

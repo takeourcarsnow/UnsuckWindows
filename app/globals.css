@@ -24,7 +24,6 @@ html, body {
 body {
   margin: 0;
   padding: 0;
-  border: 2px solid var(--foreground);
 }
 
 /* Terminal cursor effect */

@@ -147,7 +147,6 @@ export const TreeContainer: React.FC<TreeContainerProps> = ({
         className="flex items-center gap-2 text-green-500 font-bold text-lg hover:text-green-300 transition-colors cursor-pointer"
       >
         <span>{isOpen ? '▼' : '▶'}</span>
-        <span>{icon}</span>
         <span>{title}</span>
       </button>
       <div className="border-l-2 border-green-500 pl-0 mt-2">

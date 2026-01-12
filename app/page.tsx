@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { TreeNode, TreeNodeLeaf, TreeContainer } from './components/TreeNode';
-import { TerminalSearch, TerminalHeader, ThemeToggle } from './components/TerminalUI';
+import { TreeNodeLeaf, TreeContainer } from './components/TreeNode';
+import { TerminalSearch, TerminalHeader } from './components/TerminalUI';
 
 interface Tool {
   id: string;
@@ -47,6 +47,7 @@ const TOOLS: Tool[] = [
   { id: '7zip', label: '7-Zip', href: 'https://www.7-zip.org/', description: 'File archiver with high compression ratio', icon: '📦', tags: ['open-source', 'file-compression', 'archiver', 'lightweight'], category: 'Data & Files', section: 'Essential Apps' },
   { id: 'handbrake', label: 'HandBrake', href: 'https://handbrake.fr/', description: 'Open-source video transcoder', icon: '🎥', tags: ['open-source', 'video-transcoding', 'media-converter', 'encoding'], category: 'Media & Capture', section: 'Essential Apps' },
   { id: 'vscode', label: 'Visual Studio Code', href: 'https://code.visualstudio.com/', description: 'Free code editor with built-in Git & debugging', icon: '💻', tags: ['open-source', 'microsoft', 'code-editor', 'ide', 'development'], category: 'Editors & Dev', section: 'Essential Apps' },
+  { id: 'mas', label: 'Microsoft Activation Scripts (MAS)', href: 'https://github.com/massgravel/Microsoft-Activation-Scripts', description: 'Open-source Windows and Office activator featuring HWID, Ohook, TSforge, and Online KMS activation methods', icon: '🔑', tags: ['open-source', 'activation', 'windows', 'office', 'kms', 'hwid'], category: 'Activation', section: 'Essential Apps' },
   // System Monitoring
   { id: 'hwiinfo', label: 'HWiNFO', href: 'https://www.hwinfo.com/', description: 'Comprehensive hardware monitoring & information tool', icon: '🔧', tags: ['hardware-monitoring', 'system-info', 'temperatures', 'voltages'], category: 'System Monitoring', section: 'System Monitoring' },
   { id: 'msiafterburner', label: 'MSI Afterburner', href: 'https://www.msi.com/Landing/afterburner', description: 'GPU monitoring, overclocking & video capture', icon: '🎮', tags: ['gpu-monitoring', 'overclocking', 'video-capture', 'benchmarking'], category: 'System Monitoring', section: 'System Monitoring' },
@@ -148,7 +149,7 @@ export default function Home() {
 
         {filteredTools.length === 0 && searchQuery && (
           <div className="text-center py-8 text-green-600">
-            <div>$ no results found for "{searchQuery}"</div>
+            <div>$ no results found for &quot;{searchQuery}&quot;</div>
             <div className="text-xs mt-2">try different keywords or tags</div>
           </div>
         )}
