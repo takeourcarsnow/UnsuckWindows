@@ -10,6 +10,7 @@ interface TreeNodeProps {
   description?: string;
   isCollapsible?: boolean;
   tags?: string[];
+  onTagClick?: (tag: string) => void;
 }
 
 export const TreeNode: React.FC<TreeNodeProps> = ({
@@ -20,6 +21,7 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
   description,
   isCollapsible = !!children,
   tags = [],
+  onTagClick,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -63,9 +65,13 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
       {tags.length > 0 && (
         <div className="ml-6 text-green-600 text-xs mt-1 space-x-2">
           {tags.map((tag) => (
-            <span key={tag} className="inline-block">
+            <button
+              key={tag}
+              onClick={() => onTagClick?.(tag)}
+              className="inline-block hover:text-green-400 hover:underline cursor-pointer"
+            >
               #{tag}
-            </span>
+            </button>
           ))}
         </div>
       )}
@@ -80,6 +86,7 @@ interface TreeNodeLeafProps {
   href?: string;
   description?: string;
   tags?: string[];
+  onTagClick?: (tag: string) => void;
 }
 
 export const TreeNodeLeaf: React.FC<TreeNodeLeafProps> = ({
@@ -88,6 +95,7 @@ export const TreeNodeLeaf: React.FC<TreeNodeLeafProps> = ({
   href,
   description,
   tags = [],
+  onTagClick,
 }) => {
   const content = href ? (
     <a
@@ -117,9 +125,13 @@ export const TreeNodeLeaf: React.FC<TreeNodeLeafProps> = ({
       {tags.length > 0 && (
         <div className="ml-6 text-green-600 text-xs mt-1 space-x-2">
           {tags.map((tag) => (
-            <span key={tag} className="inline-block">
+            <button
+              key={tag}
+              onClick={() => onTagClick?.(tag)}
+              className="inline-block hover:text-green-400 hover:underline cursor-pointer"
+            >
               #{tag}
-            </span>
+            </button>
           ))}
         </div>
       )}

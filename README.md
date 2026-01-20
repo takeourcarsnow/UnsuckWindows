@@ -1,3 +1,7 @@
+# Decrap
+
+A guide to de-crapify your Windows, Android, and Browser Extensions & Scripts devices with debloat tools, UI tweaks, essential apps, and privacy tips.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

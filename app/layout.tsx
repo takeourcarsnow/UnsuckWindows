@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Guide to Unsuck Windows",
-  description: "A guide to optimize Windows with debloat, UI tweaks, essential apps, and privacy tips.",
+  title: "Decrap: De-crapify Windows/Android",
+  description: "A guide to optimize Windows and Android with debloat, UI tweaks, essential apps, and privacy tips.",
 };
 
 export default function RootLayout({

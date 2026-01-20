@@ -5,19 +5,25 @@ import React, { useState, useEffect } from 'react';
 interface TerminalSearchProps {
   onSearch: (query: string) => void;
   onClear: () => void;
+  value?: string;
 }
 
 export const TerminalSearch: React.FC<TerminalSearchProps> = ({
   onSearch,
   onClear,
+  value = '',
 }) => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(value);
+
+  useEffect(() => {
+    setQuery(value);
+  }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setQuery(value);
-    if (value.trim()) {
-      onSearch(value);
+    const newValue = e.target.value;
+    setQuery(newValue);
+    if (newValue.trim()) {
+      onSearch(newValue);
     } else {
       onClear();
     }
