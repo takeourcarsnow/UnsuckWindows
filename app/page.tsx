@@ -166,7 +166,7 @@ export default function Home() {
         />
 
         <div className="flex gap-2 items-center mb-6">
-          <span className="text-green-600 text-sm">$ category:</span>
+          <span className="text-green-600 text-sm">category:</span>
           {(['Windows', 'Android', 'Browser Extensions & Scripts', 'Misc.'] as const).map((platform) => (
             <button
               key={platform}
@@ -190,7 +190,7 @@ export default function Home() {
 
         {searchQuery && (
           <div className="text-xs text-green-600 mb-4">
-            $ found {filteredTools.length} result{filteredTools.length !== 1 ? 's' : ''}
+            found {filteredTools.length} result{filteredTools.length !== 1 ? 's' : ''}
           </div>
         )}
 
@@ -214,13 +214,13 @@ export default function Home() {
 
         {filteredTools.length === 0 && searchQuery && (
           <div className="text-center py-8 text-green-600">
-            <div>$ no results found for &quot;{searchQuery}&quot;</div>
+            <div>no results found for &quot;{searchQuery}&quot;</div>
             <div className="text-xs mt-2">try different keywords or tags</div>
           </div>
         )}
 
         <div className="border-t-2 border-green-500 pt-4 mt-8 text-green-300 text-sm">
-          <div>$ guide --end</div>
+          <div>guide --end</div>
           <div className="mt-1 text-green-600">
             © Decrap Guide | Keep it minimal, keep it running
           </div>

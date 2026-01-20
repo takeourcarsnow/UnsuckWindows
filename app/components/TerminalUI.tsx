@@ -32,7 +32,6 @@ export const TerminalSearch: React.FC<TerminalSearchProps> = ({
   return (
     <div className="my-6">
       <div className="flex items-center gap-2">
-        <span className="text-green-500">$</span>
         <span className="text-green-400">search</span>
         <input
           type="text"
@@ -84,7 +83,6 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({
   return (
     <div className="border-b-2 border-green-500 pb-4 mb-8">
       <div className="flex items-center gap-1 text-green-500 text-lg font-bold">
-        <span>$</span>
         <span className="text-green-400">{displayedTitle}</span>
         <span className="animate-pulse">_</span>
       </div>
@@ -104,7 +102,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
 }) => {
   return (
     <div className="flex gap-2 items-center mb-6">
-      <span className="text-green-600 text-sm">$ theme:</span>
+      <span className="text-green-600 text-sm">theme:</span>
       <button
         onClick={() => onThemeChange('green')}
         className={`px-3 py-1 text-xs border border-green-400 bg-green-950 text-green-300`}
