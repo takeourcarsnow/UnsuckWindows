@@ -40,15 +40,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 ---
-
-## Android 🔧
-
-A short list of Android apps to include:
-
-- **ReVanced Manager** — https://vanced.to/revanced-manager (this manager installs many tweaked apps)
-- **F‑Droid** — open-source Android app store
-- **Instander** — modified Instagram client
-- **VSCO** — photo editor and filters
-- **Open Camera** — powerful open-source camera app
-
----

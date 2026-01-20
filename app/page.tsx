@@ -13,7 +13,7 @@ interface Tool {
   tags: string[];
   category: string;
   section: string;
-  platform: 'Windows' | 'Android' | 'Browser Extensions & Scripts';
+  platform: 'Windows' | 'Android' | 'Browser Extensions & Scripts' | 'Misc.';
 }
 
 const TOOLS: Tool[] = [
@@ -26,7 +26,7 @@ const TOOLS: Tool[] = [
   { id: 'windynamicdesktop', label: 'WinDynamicDesktop', href: 'https://github.com/t1m0thyj/WinDynamicDesktop', description: 'Dynamically changes wallpaper based on time of day', icon: '🌅', tags: ['open-source', 'wallpaper', 'dynamic', 'time-based'], category: 'Wallpaper & Cursors', section: 'UI Tweaks', platform: 'Windows' },
   { id: 'osxpointer', label: 'osx pointer', href: 'https://github.com/antiden/macOS-cursors-for-Windows', description: 'macOS-style cursors for Windows', icon: '🖱️', tags: ['open-source', 'cursors', 'macos-theme', 'visual'], category: 'Wallpaper & Cursors', section: 'UI Tweaks', platform: 'Windows' },
   { id: 'startallback', label: 'StartAllBack', href: 'https://www.startallback.com/', description: 'Restores classic Windows Start menu & taskbar', icon: '▶️', tags: ['paid', 'start-menu', 'taskbar', 'classic-ui'], category: 'System UI', section: 'UI Tweaks', platform: 'Windows' },
-  { id: '3rvx', label: '3RVX + HideVolumeOSD', href: 'https://github.com/prncc/3RVX', description: 'Advanced volume control with on-screen display', icon: '🔊', tags: ['open-source', 'volume-control', 'osd', 'audio'], category: 'System UI', section: 'UI Tweaks', platform: 'Windows' },
+  { id: '3rvx', label: '3RVX', href: 'https://github.com/prncc/3RVX', description: 'Advanced volume control with on-screen display', icon: '🔊', tags: ['open-source', 'volume-control', 'osd', 'audio'], category: 'System UI', section: 'UI Tweaks', platform: 'Windows' },
   // Essential Apps
   { id: 'powertoys', label: 'PowerToys', href: 'https://github.com/microsoft/PowerToys', description: 'Set of utilities for power users', icon: '⚡', tags: ['open-source', 'microsoft', 'utilities', 'productivity', 'power-user'], category: 'Utilities', section: 'Essential Apps', platform: 'Windows' },
   { id: 'everything', label: 'Everything', href: 'https://www.voidtools.com/', description: 'Ultra-fast file & folder search', icon: '🔍', tags: ['file-search', 'indexing', 'fast-search'], category: 'Utilities', section: 'Essential Apps', platform: 'Windows' },
@@ -96,9 +96,9 @@ const TOOLS: Tool[] = [
   // Package Managers
   { id: 'ninite', label: 'Ninite', href: 'https://ninite.com/', description: 'Install and update multiple applications at once', icon: '📦', tags: ['installer', 'bulk-install', 'software-management', 'automation'], category: 'Software Installation', section: 'Package Managers', platform: 'Windows' },
   // Links & Resources
-  { id: 'rprivacy', label: 'r/Privacy', href: 'https://reddit.com/r/privacy', description: 'Privacy tools, techniques, and discussions', icon: '🔒', tags: ['reddit', 'community', 'privacy', 'security', 'tools'], category: 'Communities', section: 'Links & Resources', platform: 'Windows' },
-  { id: 'rpiracy', label: 'r/Piracy', href: 'https://reddit.com/r/piracy', description: 'Software piracy discussion and alternatives', icon: '🏴‍☠️', tags: ['reddit', 'community', 'piracy', 'software', 'alternatives'], category: 'Communities', section: 'Links & Resources', platform: 'Windows' },
-  { id: 'torrentleech', label: 'TorrentLeech', href: 'https://www.torrentleech.org/', description: 'Private torrent tracker with high-quality releases', icon: '🌊', tags: ['torrent-tracker', 'private', 'high-quality', 'p2p'], category: 'Torrent Trackers', section: 'Links & Resources', platform: 'Windows' },
+  { id: 'rprivacy', label: 'r/Privacy', href: 'https://reddit.com/r/privacy', description: 'Privacy tools, techniques, and discussions', icon: '🔒', tags: ['reddit', 'community', 'privacy', 'security', 'tools'], category: 'Communities', section: 'Links & Resources', platform: 'Misc.' },
+  { id: 'rpiracy', label: 'r/Piracy', href: 'https://reddit.com/r/piracy', description: 'Software piracy discussion and alternatives', icon: '🏴‍☠️', tags: ['reddit', 'community', 'piracy', 'software', 'alternatives'], category: 'Communities', section: 'Links & Resources', platform: 'Misc.' },
+  { id: 'torrentleech', label: 'TorrentLeech', href: 'https://www.torrentleech.org/', description: 'Private torrent tracker with high-quality releases', icon: '🌊', tags: ['torrent-tracker', 'private', 'high-quality', 'p2p'], category: 'Torrent Trackers', section: 'Links & Resources', platform: 'Misc.' },
   // Userscripts
   { id: 'cleangram', label: 'CleanGram', href: 'https://greasyfork.org/en/scripts/550868-cleangram', description: 'Hides Instagram posts that are suggested, sponsored, or prompt for "Follow" using a flexible configuration', icon: '📷', tags: ['instagram', 'clean-feed', 'userscript'], category: 'Userscripts', section: 'Userscripts', platform: 'Browser Extensions & Scripts' },
   { id: 'ighelper', label: 'IG Helper', href: 'https://greasyfork.org/en/scripts/404535-ig-helper', description: 'Downloading is possible for both photos and videos from posts, as well as for stories, reels or profile picture', icon: '📸', tags: ['instagram', 'downloader', 'userscript'], category: 'Userscripts', section: 'Userscripts', platform: 'Browser Extensions & Scripts' },
@@ -113,15 +113,16 @@ const TOOLS: Tool[] = [
   { id: 'vsco', label: 'VSCO', href: 'https://vsco.co', description: 'Photo editor & filters', icon: '🎞️', tags: ['android', 'photo', 'editor'], category: 'Android', section: 'Android', platform: 'Android' },
   { id: 'open_camera', label: 'Open Camera', href: 'https://opencamera.org.uk/', description: 'Open-source camera app for Android', icon: '📸', tags: ['android', 'camera', 'open-source'], category: 'Android', section: 'Android', platform: 'Android' },
   { id: 'universal_android_debloater', label: 'Universal Android Debloater', href: 'https://github.com/0x192/universal-android-debloater', description: 'Cross-platform GUI written in Rust using ADB to debloat non-rooted Android devices', icon: '🧹', tags: ['android', 'debloat', 'adb', 'rust', 'cross-platform'], category: 'Android', section: 'Android', platform: 'Android' },
-  { id: 'lineageos', label: 'LineageOS', href: 'https://lineageos.org/', description: 'Free and open-source operating system for smartphones and tablets based on Android', icon: '📱', tags: ['android', 'rom', 'custom', 'open-source'], category: 'Android', section: 'Android', platform: 'Android' },
-  { id: 'rockbox', label: 'Rockbox', href: 'https://www.rockbox.org/', description: 'Open-source firmware for digital audio players', icon: '🎵', tags: ['firmware', 'audio-player', 'open-source'], category: 'Android', section: 'Android', platform: 'Android' },
+  { id: 'lineageos', label: 'LineageOS', href: 'https://lineageos.org/', description: 'Free and open-source operating system for smartphones and tablets based on Android', icon: '📱', tags: ['android', 'rom', 'custom', 'open-source'], category: 'Firmware', section: 'Firmware', platform: 'Misc.' },
+  { id: 'rockbox', label: 'Rockbox', href: 'https://www.rockbox.org/', description: 'Open-source firmware for digital audio players', icon: '🎵', tags: ['firmware', 'audio-player', 'open-source'], category: 'Firmware', section: 'Firmware', platform: 'Misc.' },
+  { id: 'magiclantern', label: 'Magic Lantern', href: 'https://magiclantern.fm/', description: 'Open-source firmware add-on for Canon EOS cameras', icon: '📷', tags: ['firmware', 'camera', 'canon', 'open-source', 'photography'], category: 'Firmware', section: 'Firmware', platform: 'Misc.' },
   { id: 'retroarch', label: 'RetroArch', href: 'https://retroarch.com/', description: 'Frontend for emulators, game engines and media players', icon: '🎮', tags: ['emulator', 'gaming', 'frontend', 'multi-platform'], category: 'Android', section: 'Android', platform: 'Android' },
   { id: 'telegram_android', label: 'Telegram', href: 'https://telegram.org/', description: 'Fast, secure messaging with large group support', icon: '💬', tags: ['messaging', 'communication', 'encrypted', 'cross-platform'], category: 'Android', section: 'Android', platform: 'Android' },
 ];
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedPlatform, setSelectedPlatform] = useState<'Windows' | 'Android' | 'Browser Extensions & Scripts'>('Windows');
+  const [selectedPlatform, setSelectedPlatform] = useState<'Windows' | 'Android' | 'Browser Extensions & Scripts' | 'Misc.'>('Windows');
 
   const filteredTools = useMemo(() => {
     let tools = TOOLS.filter((tool) => tool.platform === selectedPlatform);
@@ -165,8 +166,8 @@ export default function Home() {
         />
 
         <div className="flex gap-2 items-center mb-6">
-          <span className="text-green-600 text-sm">$ platform:</span>
-          {(['Windows', 'Android', 'Browser Extensions & Scripts'] as const).map((platform) => (
+          <span className="text-green-600 text-sm">$ category:</span>
+          {(['Windows', 'Android', 'Browser Extensions & Scripts', 'Misc.'] as const).map((platform) => (
             <button
               key={platform}
               onClick={() => setSelectedPlatform(platform)}
