@@ -103,6 +103,13 @@ const TOOLS: Tool[] = [
   { id: 'oneclicktwitter', label: 'One-Click X/Twitter Media Downloader', href: 'https://greasyfork.org/en/scripts/528890-x-twitter-%E3%83%A1%E3%83%87%E3%82%A3%E3%82%A2%E4%B8%80%E6%8B%AC%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%80%E3%83%BC-iphone-android-%E5%AF%BE%E5%BF%9C', description: 'Download images, videos, and GIFs from X/Twitter with one click, save with user ID and post ID, customizable filenames, ZIP download on mobile', icon: '🐦', tags: ['twitter', 'x', 'downloader', 'userscript'], category: 'Userscripts', section: 'Userscripts' },
   { id: 'pagetual', label: 'Pagetual', href: 'https://greasyfork.org/en/scripts/438684-pagetual', description: 'Powerful auto-pager script for infinite scroll on paginated websites, supports thousands of sites without rules', icon: '🔄', tags: ['infinite-scroll', 'pagination', 'userscript'], category: 'Userscripts', section: 'Userscripts' },
   { id: 'spotifylyricsextractor', label: 'Spotify Lyrics Extractor', href: 'https://greasyfork.org/en/scripts/528409-spotify-lyrics-extractor', description: 'Get and copy Spotify Web lyrics', icon: '🎵', tags: ['spotify', 'lyrics', 'userscript'], category: 'Userscripts', section: 'Userscripts' },
+
+  // Android
+  { id: 'revanced_manager', label: 'ReVanced Manager', href: 'https://vanced.to/revanced-manager', description: 'Manager to install ReVanced patched/tweaked apps', icon: '🔧', tags: ['android', 'tweaks', 'youtube'], category: 'Android', section: 'Android' },
+  { id: 'f_droid', label: 'F-Droid', href: 'https://f-droid.org', description: 'Open-source Android app repository', icon: '📦', tags: ['android', 'store', 'open-source'], category: 'Android', section: 'Android' },
+  { id: 'instander', label: 'Instander', href: undefined, description: 'Modified Instagram client with extra features', icon: '📷', tags: ['android', 'instagram', 'tweaked'], category: 'Android', section: 'Android' },
+  { id: 'vsco', label: 'VSCO', href: 'https://vsco.co', description: 'Photo editor & filters', icon: '🎞️', tags: ['android', 'photo', 'editor'], category: 'Android', section: 'Android' },
+  { id: 'open_camera', label: 'Open Camera', href: 'https://opencamera.org.uk/', description: 'Open-source camera app for Android', icon: '📸', tags: ['android', 'camera', 'open-source'], category: 'Android', section: 'Android' },
 ];
 
 export default function Home() {
